@@ -1,0 +1,144 @@
+// ------------------------------
+// 1. ENUM (from your notes)
+// ------------------------------
+enum Day {
+  monday,
+  tuesday,
+  wednesday,
+}
+
+// ------------------------------
+// 2. ABSTRACT CLASS (Abstraction)
+// ------------------------------
+abstract class Person {
+  String _name; // Encapsulation: private variable
+
+  Person(this._name);
+
+  // Getter
+  String get name => _name;
+
+  // Setter
+  set name(String value) {
+    _name = value;
+  }
+
+  void introduce(); // Abstract method
+}
+
+// ------------------------------
+// 3. STATIC HELPER CLASS
+// ------------------------------
+class MathHelper {
+  static const double pi = 3.1416;
+
+  static int square(int x) {
+    return x * x;
+  }
+}
+
+// ------------------------------
+// 4. EXTENSION METHOD
+// ------------------------------
+extension Greeting on String {
+  String sayHello() {
+    return "Hello $this";
+  }
+}
+
+// ------------------------------
+// 5. STUDENT CLASS (Inheritance from Person)
+// ------------------------------
+class Student extends Person {
+  String _course; // Encapsulation
+  int _age;
+
+  // Parameterized Constructor
+  Student(String name, this._course, this._age) : super(name);
+
+  // Named Constructor
+  Student.guest()
+      : _course = "Undecided",
+        _age = 0,
+        super("Guest");
+
+  // Getters
+  String get course => _course;
+  int get age => _age;
+
+  // Setters
+  set course(String value) {
+    _course = value;
+  }
+
+  set age(int value) {
+    if (value > 0) {
+      _age = value;
+    }
+  }
+
+  // Override abstract method
+  @override
+  void introduce() {
+    print("I'm $name, $_age years old, taking $course.");
+  }
+}
+
+// ------------------------------
+// 6. MAIN PROGRAM
+// ------------------------------
+void main() {
+  print("=== Student Information System ===");
+  print("");
+
+  // --- Using Enum ---
+  Day today = Day.monday;
+  print("Today is: $today");
+  print("");
+
+  // --- Using Static Members ---
+  print("Value of pi: ${MathHelper.pi}");
+  print("Square of 5: ${MathHelper.square(5)}");
+  print("");
+
+  // --- Using Extension Method ---
+  String myName = "Juan";
+  print(myName.sayHello());
+  print("");
+
+  // --- Create Student objects ---
+  Student student1 = Student("Juan", "BSIT", 20);
+  Student student2 = Student("Maria", "BSCS", 19);
+  Student guestStudent = Student.guest();
+
+  // --- Display using getters ---
+  print("--- Student 1 ---");
+  student1.introduce();
+
+  print("--- Student 2 ---");
+  student2.introduce();
+
+  print("--- Guest Student ---");
+  guestStudent.introduce();
+
+  print("");
+
+  // --- Using Cascade Operator ---
+  print("--- Updating Student using Cascade ---");
+  Student student3 = Student("", "", 0)
+    ..name = "Carlos"
+    ..course = "BSBA"
+    ..age = 22
+    ..introduce();
+
+  print("");
+
+  // --- Modify using Setters ---
+  print("--- Update Student 1 Info ---");
+  student1.course = "BSIT - Major in Web Dev";
+  student1.age = 21;
+  student1.introduce();
+
+  print("");
+  print("=== End of Program ===");
+}
